@@ -34,7 +34,7 @@ def getVideos(channelId):
     videos = []
     nextPageToken = None
 
-    for i in range(10):
+    while True:
         results = youtube.playlistItems().list(
             playlistId=playlistId,
             part='snippet',
