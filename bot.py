@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 from discord.ext import commands
 from discord.ext import tasks
 from googleapiclient.discovery import build
+from TweetFetcher import TweetFetcher
 
 # Load .env file that holds the tokens and API keys
 dotenv_path = join(dirname(__file__), '.env')
@@ -35,6 +36,9 @@ benjaTimeMap = {
 # List of Benjabola videos and video ids
 global benjaList
 global videoIds
+
+# Create the tweet fetcher
+tweetFetcher = TweetFetcher()
 
 # Give bot permissions
 intents = discord.Intents().all()
@@ -157,9 +161,14 @@ async def benjaLoop():
         # Post a random video at the specified time to the specified channel
         if time_in_range(benjaTimeMap["start"], benjaTimeMap["end"], now):
 
+            # Get tweets and pick one at random
+            tweets = tweetFetcher.getTweets("BeckSM64")
+            rng = random.randrange(len(tweets))
+            randTweet = tweets[rng][2] # Get the content of the random tweet
+
             # Get a random video from the list of videos
             rng = random.randrange(len(videoIds))
-            randVideo = "Your daily dose of Benjabola\n https://www.youtube.com/watch?v=" + str(videoIds[rng])
+            randVideo = randTweet + "\n https://www.youtube.com/watch?v=" + str(videoIds[rng])
 
             # Specifc channel for debugging
             # await bot.get_channel(830207640713953323).send(randVideo)
