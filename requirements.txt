@@ -1,3 +1,4 @@
 discord
 python-dotenv
 google-api-python-client
+snscrape
