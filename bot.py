@@ -162,7 +162,7 @@ async def benjaLoop():
         if time_in_range(benjaTimeMap["start"], benjaTimeMap["end"], now):
 
             # Get tweets and pick one at random
-            tweets = tweetFetcher.getTweets("BeckSM64")
+            tweets = tweetFetcher.getTweets("Benjabola")
             rng = random.randrange(len(tweets))
             randTweet = tweets[rng][2] # Get the content of the random tweet
 
